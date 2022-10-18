@@ -4,6 +4,7 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.db import IntegrityError
 
 
 class StudentList(APIView):
@@ -40,6 +41,10 @@ class StudentDetail(APIView):
     def post(self, request, format=None):
         serializer = StudentSerializers(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            try:
+                serializer.save()
+            except IntegrityError as e:
+                e ={"error": 'this data already exists in the database'}
+                return Response(e, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
