@@ -1,10 +1,15 @@
+from distutils.ccompiler import new_compiler
+from django.shortcuts import render
 from .models import Student
 from .serializers import StudentSerializers
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.db import IntegrityError
+from django.contrib.auth.models import User, Group
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
+
 
 
 class StudentList(APIView):
@@ -48,3 +53,43 @@ class StudentDetail(APIView):
                 return Response(e, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class StudentRegistration(APIView):
+    def post(self, request):
+        username = request.POST.get("username")
+        fname = request.POST.get("fname")
+        lname = request.POST.get("lname")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        group = request.POST.get("group")
+        new_user = User.objects.create_user(username, email, password)
+        new_user.first_name = fname
+        new_user.last_name = lname
+        grouped = Group.objects.get(name=group)
+        new_user.groups.add(grouped)
+        new_user.save()
+        return Response({"status": status.HTTP_201_CREATED})
+
+    def get(self, request):
+        user = User.objects.filter(groups__name="Student").values()
+        return Response(list(user))
+
+
+class UserLogin(APIView):
+    def post(self, request):
+        usr = request.POST.get("username")
+        passw = request.POST.get("password")
+        auth = authenticate(username=usr, password=passw)
+        if auth:
+            login(request, auth)
+            return Response({"status": status.HTTP_200_OK})
+        else:
+            return Response({"status": status.HTTP_401_UNAUTHORIZED})
+
+
+
+def logoutUser(request):
+    logout(request)
+    return HttpResponse({"status": status.HTTP_200_OK})

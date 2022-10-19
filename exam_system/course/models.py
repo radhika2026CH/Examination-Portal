@@ -28,4 +28,5 @@ class Mcq(models.Model):
     option_3 = models.TextField(null=False, blank=False)
     option_4 = models.TextField(null=False, blank=False)
     answer = models.CharField(max_length = 200, validators =[answer_key_validator])
+    test = models.ForeignKey(Test, on_delete=models.CASCADE, default=1)
 
