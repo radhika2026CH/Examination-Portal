@@ -58,19 +58,22 @@ class StudentDetail(APIView):
 
 class StudentRegistration(APIView):
     def post(self, request):
-        username = request.POST.get("username")
-        fname = request.POST.get("fname")
-        lname = request.POST.get("lname")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        group = request.POST.get("group")
-        new_user = User.objects.create_user(username, email, password)
-        new_user.first_name = fname
-        new_user.last_name = lname
-        grouped = Group.objects.get(name=group)
-        new_user.groups.add(grouped)
-        new_user.save()
-        return Response({"status": status.HTTP_201_CREATED})
+        try:
+            username = request.POST.get("username")
+            fname = request.POST.get("fname")
+            lname = request.POST.get("lname")
+            email = request.POST.get("email")
+            password = request.POST.get("password")
+            group = request.POST.get("group")
+            new_user = User.objects.create_user(username, email, password)
+            new_user.first_name = fname
+            new_user.last_name = lname
+            grouped = Group.objects.get(name=group)
+            new_user.groups.add(grouped)
+            new_user.save()
+            return Response({"status": status.HTTP_201_CREATED})
+        except Exception as e:
+            return Response({'error': e.args})
 
     def get(self, request):
         user = User.objects.filter(groups__name="Student").values()
