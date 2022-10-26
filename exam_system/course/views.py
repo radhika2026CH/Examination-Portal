@@ -388,6 +388,7 @@ class QuestionDetail(APIView):
 class StudentCourseView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    
     # ! Get all the students registered in different courses
     def get(self, request):
         test = StudentCourse.objects.filter(student = request.user)
@@ -396,12 +397,14 @@ class StudentCourseView(APIView):
 
     # ! Add a student to a course
     def post(self, request):
-        print( "request data\n\n\n\n\n", request.data)
-        serializer = StudentCourseSerializer(data = request.data, context = {'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try: 
+            serializer = StudentCourseSerializer(data = request.data, context = {'request': request})
+            if serializer.is_valid():
+                serializer.save()
+                return Response({"success": status.HTTP_200_OK, "student course detail": serializer.data})
+        except Exception as e:
+            return Response({"error": e.args})
+
     # ! Get a particular row from the table
     def get_object(self, pk):
         try:

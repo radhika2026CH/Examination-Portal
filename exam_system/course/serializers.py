@@ -2,7 +2,12 @@ from dataclasses import field
 from multiprocessing import context
 from rest_framework import serializers
 from .models import Course, SelectedAnswers, StudentCourse, Test, Question, TestAppeared
+from django.contrib.auth.models import User
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User 
+        fields = '__all__'
 
 class CourseSerializer(serializers.Serializer):
     course_name = serializers.CharField(max_length=256)
@@ -46,11 +51,9 @@ class TestSerializer(serializers.Serializer):
         )
         instance.save()
         return instance
-
     class Meta:
         model = Test
         fields = "__all__"
-
 
 class QuestionSerializer(serializers.Serializer):
     question = serializers.CharField()
@@ -81,22 +84,20 @@ class QuestionSerializer(serializers.Serializer):
 
 
 class StudentCourseSerializer(serializers.ModelSerializer):
+    course = CourseSerializer(read_only = True)
+    student = UserSerializer(read_only = True)
+
     def create(self, valid_data):
         request = self.context['request']
-        student_id = request.data.get('student_id')
-        course_id = request.data.get('course_id')
+        student_id = request.data['student_id']
+        course_id = request.data['course_id']
         obj = StudentCourse(**valid_data)
-        obj.student = student_id
-        obj.course = course_id
+        assigned_student = User.objects.get(username = student_id)
+        obj.student = assigned_student
+        assigned_course = Course.objects.get(course_name = course_id)
+        obj.course = assigned_course
         obj.save()
         return obj
-
-    # def update(self, instance, valid_data):
-    #     instance.course = valid_data.get('course', instance.course)
-    #     instance.student = valid_data.get('stuent', instance.student)
-    #     instance.save()
-    #     return instance
-
     class Meta:
         model = StudentCourse
         fields = '__all__' 
