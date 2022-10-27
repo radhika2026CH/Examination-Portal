@@ -1,0 +1,842 @@
+{
+	"info": {
+		"_postman_id": "c61e5e39-8ea6-4fd6-853c-6664d399ea63",
+		"name": "Examination-Portal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"logic123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/token/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "student123",
+									"type": "default"
+								},
+								{
+									"key": "fname",
+									"value": "student",
+									"type": "default"
+								},
+								{
+									"key": "lname",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "abc@outlook.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "logic123",
+									"type": "default"
+								},
+								{
+									"key": "group",
+									"value": "student",
+									"type": "default"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/student/user-register/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"student",
+								"user-register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "student123",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "logic123",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseurl}}/student/login/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"student",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Details of Logged In User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzY4ODE5LCJpYXQiOjE2NjY3NjUyMTksImp0aSI6Ijk5NjZkYmMzNjc5ZDRhZWZiZWEzOTIzNzFiYzU1MzhlIiwidXNlcl9pZCI6MTh9.tTbp6PckJ7YTb7wN0CiTC-Zupk0I8CDf4Q-yHMC2aFE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/student/detail/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"student",
+								"detail",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzY4ODE5LCJpYXQiOjE2NjY3NjUyMTksImp0aSI6Ijk5NjZkYmMzNjc5ZDRhZWZiZWEzOTIzNzFiYzU1MzhlIiwidXNlcl9pZCI6MTh9.tTbp6PckJ7YTb7wN0CiTC-Zupk0I8CDf4Q-yHMC2aFE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id_to_deactive\": \"abc123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/student/detail/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"student",
+								"detail",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List of All Students",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzY4ODE5LCJpYXQiOjE2NjY3NjUyMTksImp0aSI6Ijk5NjZkYmMzNjc5ZDRhZWZiZWEzOTIzNzFiYzU1MzhlIiwidXNlcl9pZCI6MTh9.tTbp6PckJ7YTb7wN0CiTC-Zupk0I8CDf4Q-yHMC2aFE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/student/students-detail/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"student",
+								"students-detail",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List of All Staff",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzY4ODE5LCJpYXQiOjE2NjY3NjUyMTksImp0aSI6Ijk5NjZkYmMzNjc5ZDRhZWZiZWEzOTIzNzFiYzU1MzhlIiwidXNlcl9pZCI6MTh9.tTbp6PckJ7YTb7wN0CiTC-Zupk0I8CDf4Q-yHMC2aFE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/student/staffs-detail/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"student",
+								"staffs-detail",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exam Management",
+			"item": [
+				{
+					"name": "Course",
+					"item": [
+						{
+							"name": "Get List of All Courses",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzcyNDg2LCJpYXQiOjE2NjY3Njg4ODYsImp0aSI6IjA5NjQ2YjQ5NDE2YTQ1MWY5ZjViNGY4MGU4OGQ3ODBhIiwidXNlcl9pZCI6MTh9.RBkCvwyQ_LOkQHikEo3Tpd0iH8-dO0kg8PeQAIi9fKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseurl}}/exam/course/course-list/",
+									"host": [
+										"{{baseurl}}"
+									],
+									"path": [
+										"exam",
+										"course",
+										"course-list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Course by Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzcyNDg2LCJpYXQiOjE2NjY3Njg4ODYsImp0aSI6IjA5NjQ2YjQ5NDE2YTQ1MWY5ZjViNGY4MGU4OGQ3ODBhIiwidXNlcl9pZCI6MTh9.RBkCvwyQ_LOkQHikEo3Tpd0iH8-dO0kg8PeQAIi9fKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"creater_name\": \"Prof. ABEED\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{exam portal}}/course/update-course/3",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"course",
+										"update-course",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Course",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzcyNDg2LCJpYXQiOjE2NjY3Njg4ODYsImp0aSI6IjA5NjQ2YjQ5NDE2YTQ1MWY5ZjViNGY4MGU4OGQ3ODBhIiwidXNlcl9pZCI6MTh9.RBkCvwyQ_LOkQHikEo3Tpd0iH8-dO0kg8PeQAIi9fKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"course_name\": \"DSAA Advance\",\n    \"creater_name\": \"Prof. Stack Queue\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{exam portal}}/course/create-course/",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"course",
+										"create-course",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Course by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{exam portal}}/course/detail-course/7",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"course",
+										"detail-course",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Course",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzcyNDg2LCJpYXQiOjE2NjY3Njg4ODYsImp0aSI6IjA5NjQ2YjQ5NDE2YTQ1MWY5ZjViNGY4MGU4OGQ3ODBhIiwidXNlcl9pZCI6MTh9.RBkCvwyQ_LOkQHikEo3Tpd0iH8-dO0kg8PeQAIi9fKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{exam portal}}/course/detail-course/6",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"course",
+										"detail-course",
+										"6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Test",
+					"item": [
+						{
+							"name": "Get List of All Tests",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzcyNDg2LCJpYXQiOjE2NjY3Njg4ODYsImp0aSI6IjA5NjQ2YjQ5NDE2YTQ1MWY5ZjViNGY4MGU4OGQ3ODBhIiwidXNlcl9pZCI6MTh9.RBkCvwyQ_LOkQHikEo3Tpd0iH8-dO0kg8PeQAIi9fKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{exam portal}}/test/test-list/",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"test",
+										"test-list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Test",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzcyNDg2LCJpYXQiOjE2NjY3Njg4ODYsImp0aSI6IjA5NjQ2YjQ5NDE2YTQ1MWY5ZjViNGY4MGU4OGQ3ODBhIiwidXNlcl9pZCI6MTh9.RBkCvwyQ_LOkQHikEo3Tpd0iH8-dO0kg8PeQAIi9fKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"test_name\": \"DBMS test 2\",\n    \"test_duration\": 5000,\n    \"fk_course_id\": 4\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{exam portal}}/test/create-test/",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"test",
+										"create-test",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Test by Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzcyNDg2LCJpYXQiOjE2NjY3Njg4ODYsImp0aSI6IjA5NjQ2YjQ5NDE2YTQ1MWY5ZjViNGY4MGU4OGQ3ODBhIiwidXNlcl9pZCI6MTh9.RBkCvwyQ_LOkQHikEo3Tpd0iH8-dO0kg8PeQAIi9fKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{exam portal}}/test/detail-test/8",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"test",
+										"detail-test",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update test by Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzcyNDg2LCJpYXQiOjE2NjY3Njg4ODYsImp0aSI6IjA5NjQ2YjQ5NDE2YTQ1MWY5ZjViNGY4MGU4OGQ3ODBhIiwidXNlcl9pZCI6MTh9.RBkCvwyQ_LOkQHikEo3Tpd0iH8-dO0kg8PeQAIi9fKA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"test_name\": \"DBMS test\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{exam portal}}/test/update-test/4",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"test",
+										"update-test",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Test by Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2Nzc5Nzk5LCJpYXQiOjE2NjY3NzYxOTksImp0aSI6ImJmOGJhYWU3NGY1YTQ5N2Y4NjA2NWE4ZTExMDg3MmRkIiwidXNlcl9pZCI6MTh9.kA1eR6nf6P57FMCJQRsZxU5KbOt7fbvEtLyTDPVxkJc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{exam portal}}/test/delete-test/4",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"test",
+										"delete-test",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Test by fk_course_id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2Nzc2MTE1LCJpYXQiOjE2NjY3NzI1MTUsImp0aSI6Ijk2ZTUzMmMzNmMwZjQzN2U4MDUyOWE3MzI3YTkwYjk5IiwidXNlcl9pZCI6MTh9.aReAsjxQEHLJXPD-pI7iTy82jzu7xJnLNIzehgfkh-c",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{exam portal}}/test/test-list-by-course/4",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"test",
+										"test-list-by-course",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Questions",
+					"item": [
+						{
+							"name": "Get All Questions",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2Nzc5Nzk5LCJpYXQiOjE2NjY3NzYxOTksImp0aSI6ImJmOGJhYWU3NGY1YTQ5N2Y4NjA2NWE4ZTExMDg3MmRkIiwidXNlcl9pZCI6MTh9.kA1eR6nf6P57FMCJQRsZxU5KbOt7fbvEtLyTDPVxkJc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{exam portal}}/question/question-list/",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"question",
+										"question-list",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Question",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2Nzc2MTE1LCJpYXQiOjE2NjY3NzI1MTUsImp0aSI6Ijk2ZTUzMmMzNmMwZjQzN2U4MDUyOWE3MzI3YTkwYjk5IiwidXNlcl9pZCI6MTh9.aReAsjxQEHLJXPD-pI7iTy82jzu7xJnLNIzehgfkh-c",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"question\": \"What is the name of the subject?\",\n    \"option_a\": \"don't know\",\n    \"option_b\": \"Bird\",\n    \"option_c\": \"cake\",\n    \"option_d\": \"DBMS\",\n    \"answer\": \"option_a\",\n    \"fk_test_id\": 4\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{exam portal}}/question/create-question/",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"question",
+										"create-question",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Question by Id",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Questions by Test Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2Nzc2MTE1LCJpYXQiOjE2NjY3NzI1MTUsImp0aSI6Ijk2ZTUzMmMzNmMwZjQzN2U4MDUyOWE3MzI3YTkwYjk5IiwidXNlcl9pZCI6MTh9.aReAsjxQEHLJXPD-pI7iTy82jzu7xJnLNIzehgfkh-c",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{exam portal}}/questions/ques-list-by-test/5",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"questions",
+										"ques-list-by-test",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Question",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Question by Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2Nzc5Nzk5LCJpYXQiOjE2NjY3NzYxOTksImp0aSI6ImJmOGJhYWU3NGY1YTQ5N2Y4NjA2NWE4ZTExMDg3MmRkIiwidXNlcl9pZCI6MTh9.kA1eR6nf6P57FMCJQRsZxU5KbOt7fbvEtLyTDPVxkJc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{exam portal}}/question/delete-question/2",
+									"host": [
+										"{{exam portal}}"
+									],
+									"path": [
+										"question",
+										"delete-question",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Student Course",
+			"item": [
+				{
+					"name": "Assign Course to Student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzgzNDMxLCJpYXQiOjE2NjY3Nzk4MzEsImp0aSI6IjVmN2E3MDExMWQ2MTQ1ZTY5NmRjYTQyMDA2ZTAxMzk0IiwidXNlcl9pZCI6MTh9.nVziKl77vmlDBi0iKqC9NjoxoAaIA_mITVgq_23Yqhk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"student_id\": \"student\",\n        \"course_id\": \"DSA Basics\"\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{exam portal}}/student-course/add-student-course/",
+							"host": [
+								"{{exam portal}}"
+							],
+							"path": [
+								"student-course",
+								"add-student-course",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Student Course Enrollement List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NzgzNDMxLCJpYXQiOjE2NjY3Nzk4MzEsImp0aSI6IjVmN2E3MDExMWQ2MTQ1ZTY5NmRjYTQyMDA2ZTAxMzk0IiwidXNlcl9pZCI6MTh9.nVziKl77vmlDBi0iKqC9NjoxoAaIA_mITVgq_23Yqhk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{exam portal}}/student-course/get-student-course/",
+							"host": [
+								"{{exam portal}}"
+							],
+							"path": [
+								"student-course",
+								"get-student-course",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
