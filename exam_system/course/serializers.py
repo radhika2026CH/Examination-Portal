@@ -10,6 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CourseSerializer(serializers.Serializer):
+    id = serializers.ReadOnlyField()
     course_name = serializers.CharField(max_length=256)
     creater_name = serializers.CharField(max_length=256)
 
@@ -32,6 +33,7 @@ class CourseSerializer(serializers.Serializer):
 
 
 class TestSerializer(serializers.Serializer):
+    id = serializers.ReadOnlyField()
     test_name = serializers.CharField(max_length=256)
     test_duration = serializers.DurationField()
     fk_course = CourseSerializer(read_only=True)
@@ -56,6 +58,7 @@ class TestSerializer(serializers.Serializer):
         fields = "__all__"
 
 class QuestionSerializer(serializers.Serializer):
+    id = serializers.ReadOnlyField()
     question = serializers.CharField()
     option_a = serializers.CharField()
     option_b = serializers.CharField()
@@ -84,6 +87,7 @@ class QuestionSerializer(serializers.Serializer):
 
 
 class StudentCourseSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     course = CourseSerializer(read_only = True)
     student = UserSerializer(read_only = True)
 
@@ -104,30 +108,43 @@ class StudentCourseSerializer(serializers.ModelSerializer):
 
 
 class TestAppearedSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+    student = UserSerializer(read_only = True)
+    test = TestSerializer(read_only = True)
+
     def create(self, valid_data):
         request = self.context['request']
-        student_id = request.data.get('student_id')
-        test_id = request.data.get('test_id')
+        student_id = request.data['student_id']
+        test_id = request.data['test_id']
         obj = TestAppeared(**valid_data)
-        obj.student = student_id
-        obj.test = test_id
+        assigned_student = User.objects.get(username = student_id)
+        obj.student = assigned_student
+        assigned_test = Test.objects.get(test_name = test_id)
+        obj.test = assigned_test
         obj.save()
         return obj
-
     class Meta:
         model = TestAppeared
         fields = '__all__'
 
 class SelectedAnswerSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+    student = UserSerializer(read_only = True)
+    test = TestSerializer(read_only = True)
+    question = QuestionSerializer(read_only = True)
+ 
     def create(self, valid_data):
         request = self.context['request']
-        student_id = request.data.get('student_id')
-        test_id = request.data.get('test_id')
-        question_id = request.data.get('question_id')
-        obj = TestAppeared(**valid_data)
-        obj.student = student_id
-        obj.test = test_id
-        obj.question = question_id
+        student_id = request.data['student_id']
+        assigned_student = User.objects.get(username = student_id)
+        test_id = request.data['test_id']
+        assigned_test = Test.objects.get(test_name = test_id)
+        question_id = request.data['question_id']
+        assigned_question = Question.objects.get(id = question_id)
+        obj = SelectedAnswers(**valid_data)
+        obj.student = assigned_student
+        obj.test = assigned_test
+        obj.question = assigned_question
         obj.save()
         return obj
 

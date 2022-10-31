@@ -25,6 +25,17 @@ def is_member(user):
     if user.groups.filter(name='staff').exists():
         return "staff"
     return "student"
+    
+class UserByJWT(APIView):
+    def get(self, request):
+        token = request.headers['Authorization']
+        token = token[7: ]
+        content = get_user_from_JWT(token)
+        id = content['user_id']
+        user = User.objects.get(id=id).first()
+        return Response({
+            "user": user
+        })
 
 # ! User registration
 class UserRegister(APIView):
@@ -46,10 +57,13 @@ class UserRegister(APIView):
             refresh = RefreshToken.for_user(new_user)
             return Response({
                 "success": "User Created Successfully",
+                "username": username,
                 "refresh": str(refresh),
-                "access": str(refresh.access_token)})
+                "access": str(refresh.access_token), 
+                "group": group
+            })
         except Exception as e:
-            return Response({"error": e.args})
+            return Response({"message": e.args}, status=status.HTTP_400_BAD_REQUEST)
 
 # ! Login 
 class UserLogin(APIView):
@@ -60,13 +74,14 @@ class UserLogin(APIView):
         if auth:
             login(request, auth)
             user =User.objects.filter(username=username).first()
-            print("USER\n\n\n", user.id)
-            print("is_active", user.is_active)
+            group = is_member(user)
             if user.is_active == False:
                 return  Response({"error": "Your account has been deactivated"})
             refresh = RefreshToken.for_user(user)
             return Response({
                             "success": status.HTTP_200_OK,
+                            "username": username,
+                            "group": group,
                             "refresh": str(refresh),
                             "access": str(refresh.access_token)
                             })

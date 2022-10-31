@@ -8,6 +8,7 @@ urlpatterns = [
     path('course/delete-course/<int:pk>', views.CourseDetail.as_view()),
     path('course/create-course/', views.CourseDetail.as_view()),
     path('course/detail-course/<int:pk>', views.CourseDetail.as_view()),
+    path('course/course-list-by-creater/<str:pk>', views.AllCoursesByCreater.as_view()),
     # ! Test URLS
     path('test/test-list/', views.AllTests.as_view()),
     path('test/detail-test/<int:pk>', views.TestDetail.as_view()),

@@ -9,5 +9,6 @@ urlpatterns = [
     path('students-detail/', views.AllStudent.as_view()), 
     path('staffs-detail/', views.AllStaff.as_view()),
     path('detail/', views.UserDetail.as_view()),
-    
+    path('/user-by-JWT/', views.UserByJWT.as_view()),
+
 ]

@@ -26,6 +26,18 @@ def is_member(user):
         return "staff"
     return "student"
 
+class AllCoursesByCreater(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    # ! Get all courses
+    def get(self, request, pk):
+        try: 
+            course = Course.objects.all().filter(creater_name=pk) 
+            serializer = CourseSerializer(course, many=True)
+            return Response({"success": status.HTTP_200_OK, "course_detail_list": serializer.data})
+        except Exception as e:
+            return Response({"error": e.args})
+
 class AllCourses(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
@@ -80,6 +92,7 @@ class CourseDetail(APIView):
             
     # ! Create a course
     def post(self, request, format=None):
+            print("request body\n\n\n\n", request.data)
             serializer = CourseSerializer(data=request.data)
             if serializer.is_valid():
                 try:
